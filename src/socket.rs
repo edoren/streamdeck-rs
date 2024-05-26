@@ -104,6 +104,11 @@ where
                         }
                     };
                 }
+                Poll::Ready(Some(Ok(tungstenite::Message::Close(_)))) => {
+                    break Poll::Ready(Some(Err(StreamDeckSocketError::WebSocketError(
+                        tungstenite::Error::ConnectionClosed,
+                    ))))
+                }
                 Poll::Ready(Some(Ok(_))) => {}
                 Poll::Ready(Some(Err(error))) => {
                     break Poll::Ready(Some(Err(StreamDeckSocketError::WebSocketError(error))))
