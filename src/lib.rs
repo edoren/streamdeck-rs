@@ -19,7 +19,7 @@ use std::fmt;
 /// - `M` represents the messages that are received from the property inspector.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received/)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(tag = "event", rename_all = "camelCase")]
 pub enum Message<G, S, M> {
     /// A key has been pressed.
@@ -273,7 +273,7 @@ pub enum Message<G, S, M> {
 /// - `M` represents the messages that are sent to the property inspector.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(tag = "event", rename_all = "camelCase")]
 pub enum MessageOut<G, S, M> {
     /// Set the title of an action instance.
@@ -433,7 +433,7 @@ pub enum MessageOut<G, S, M> {
 }
 
 /// The target of a command.
-#[derive(Debug, Deserialize_repr, Serialize_repr)]
+#[derive(Debug, Deserialize_repr, Serialize_repr, Clone)]
 #[repr(u8)]
 pub enum Target {
     /// Both the device and a the display within the Stream Deck software.
@@ -447,7 +447,7 @@ pub enum Target {
 /// The title to set as part of a [SetTitle](enum.MessageOut.html#variant.SetTitle) message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/#settitle)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TitlePayload {
     /// The new title.
@@ -462,7 +462,7 @@ pub struct TitlePayload {
 /// The image to set as part of a [SetImage](enum.MessageOut.html#variant.SetImage) message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/#setimage)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ImagePayload {
     /// An image in the form of a data URI.
@@ -477,7 +477,7 @@ pub struct ImagePayload {
 /// The state to set as part of a [SetState](enum.MessageOut.html#variant.SetState) message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/#setstate)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct StatePayload {
     /// The new state.
@@ -487,7 +487,7 @@ pub struct StatePayload {
 /// The profile to activate as part of a [SwitchToProfile](enum.MessageOut.html#variant.SwitchToProfile) message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/#SwitchToProfile)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ProfilePayload {
     /// The name of the profile to activate.
@@ -497,7 +497,7 @@ pub struct ProfilePayload {
 /// The URL to launch as part of a [OpenUrl](enum.MessageOut.html#variant.OpenUrl) message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent/#openurl)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct UrlPayload {
     /// The URL to launch.
@@ -505,7 +505,7 @@ pub struct UrlPayload {
 }
 
 /// Additional information about the key pressed.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct KeyPayload<S> {
     /// The stored settings for the action instance.
@@ -520,7 +520,7 @@ pub struct KeyPayload<S> {
 }
 
 /// Additional information about a key's appearance.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct VisibilityPayload<S> {
     /// The stored settings for the action instance.
@@ -533,7 +533,7 @@ pub struct VisibilityPayload<S> {
 }
 
 /// The new title of a key.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TitleParametersPayload<S> {
     /// The stored settings for the action instance.
@@ -549,7 +549,7 @@ pub struct TitleParametersPayload<S> {
 }
 
 /// The new global settings.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct GlobalSettingsPayload<G> {
     /// The stored settings for the plugin.
@@ -557,7 +557,7 @@ pub struct GlobalSettingsPayload<G> {
 }
 
 /// A log message.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct LogMessagePayload {
     /// The log message text.
@@ -567,7 +567,7 @@ pub struct LogMessagePayload {
 /// A layout update message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent#setfeedbacklayout-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SetFeedbackLayoutPayload {
     /// A predefined layout identifier or the relative path to a JSON file that contains a custom layout.
@@ -577,7 +577,7 @@ pub struct SetFeedbackLayoutPayload {
 /// A trigger description update message.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-sent#settriggerdescription-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SetTriggerDescriptionPayload {
     /// A value that describes the long-touch interaction with the touch display.
@@ -593,7 +593,7 @@ pub struct SetTriggerDescriptionPayload {
 /// Additional information about a touch tap event.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received#touchtap-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TouchTapPayload<S> {
     /// The stored settings for the action instance.
@@ -609,7 +609,7 @@ pub struct TouchTapPayload<S> {
 /// Additional information about an encoder press event.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received#dialdown-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DialDownPayload<S> {
     /// The stored settings for the action instance.
@@ -621,7 +621,7 @@ pub struct DialDownPayload<S> {
 /// Additional information about an encoder release event.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received#dialup-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DialUpPayload<S> {
     /// The stored settings for the action instance.
@@ -633,7 +633,7 @@ pub struct DialUpPayload<S> {
 /// Additional information about an encoder rotate event.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received#dialrotate-sd)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DialRotatePayload<S> {
     /// The stored settings for the action instance.
@@ -649,7 +649,7 @@ pub struct DialRotatePayload<S> {
 /// Information about a hardware device.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received/#devicedidconnect)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceInfo {
     /// The user-provided name of the device.
@@ -664,7 +664,7 @@ pub struct DeviceInfo {
 }
 
 /// Information about a monitored application that has launched or terminated.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct ApplicationPayload {
     /// The name of the application.
@@ -674,7 +674,7 @@ pub struct ApplicationPayload {
 /// The location of a key on a device.
 ///
 /// Locations are specified using zero-indexed values starting from the top left corner of the device.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Coordinates {
     /// The x coordinate of the key.
@@ -686,7 +686,7 @@ pub struct Coordinates {
 /// The vertical alignment of a title.
 ///
 /// Titles are always centered horizontally.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum Alignment {
     /// The title should appear at the top of the key.
@@ -700,7 +700,7 @@ pub enum Alignment {
 /// Style information for a title.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/events-received/#titleparametersdidchange)
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct TitleParameters {
     /// The name of the font family.
@@ -720,7 +720,7 @@ pub struct TitleParameters {
 }
 
 /// The size of a device in keys.
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceSize {
     /// The number of key columns on the device.
@@ -732,7 +732,7 @@ pub struct DeviceSize {
 /// The type of connected hardware device.
 ///
 /// [Official Documentation](https://docs.elgato.com/sdk/plugins/manifest/#profiles)
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum DeviceType {
     /// The [Stream Deck](https://www.elgato.com/en/gaming/stream-deck).
     StreamDeck, // 0
